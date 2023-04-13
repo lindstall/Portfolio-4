@@ -1,0 +1,68 @@
+---
+title: "Portfolio 4"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+# Load required packages
+library(readxl)
+
+# Read in the data
+df <- read_excel("/Users/lindsaystall/Downloads/PIRUS_Public_May2020.xlsx")
+
+```
+
+```{r}
+count <- sum(df$Radicalization_Far_Right == 1)
+
+cat("Number of individuals in Radicalization_Far_Right out of 2226 total terrorists:", count)
+```
+
+```{r}
+count <- sum(df$Radicalization_Far_Left == 1)
+
+cat("Number of individuals in Radicalization_Far_Left out of 2226 total terrorists:", count)
+```
+
+```{r}
+count <- sum(df$Radicalization_Single_Issue == 1)
+
+cat("Number of individuals in Radicalization_Single_Issue out of 2226 total terrorists:", count)
+```
+
+```{r}
+count <- sum(df$Radicalization_Islamist == 1)
+
+cat("Number of individuals in Radicalization_Islamist out of 2226 total terrorists:", count)
+```
+
+
+```{r}
+counts <- c(
+  sum(df$Radicalization_Far_Right == 1),
+  sum(df$Radicalization_Far_Left == 1),
+  sum(df$Radicalization_Single_Issue ==1),
+  sum(df$Radicalization_Islamist ==1))
+
+plot_df <- data.frame(
+  category = c("Far Right", "Far Left", "Single Issue", "Islamist"),
+  count = counts
+)
+
+ggplot(plot_df, aes(x = category, y = count, fill = category)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Category of radicalization", y = "Number of individuals", title = "Radicalization by category") +
+  theme_bw()
+
+```
+
+
